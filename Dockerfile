@@ -1,5 +1,5 @@
 FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
-LABEL maintainer="Julio Gutierrez julio.guti+nordvpn@pm.me"
+LABEL maintainer="John Goughenrou"
 
 ARG NORDVPN_VERSION=3.18.1
 ARG DEBIAN_FRONTEND=noninteractive

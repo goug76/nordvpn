@@ -2,9 +2,9 @@
     <a href="https://nordvpn.com/"><img src="https://github.com/goug76/nordvpn/raw/master/.img/NordVpn_logo.png"/></a>
     </br>
     <a href="https://github.com/goug76/nordvpn/blob/master/LICENSE"><img src="https://badgen.net/github/license/goug76/nordvpn?color=cyan"/></a>
-    <a href="https://cloud.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/size/goug76/nordvpn?icon=docker&label=size"/></a>
-    <a href="https://cloud.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/pulls/goug76/nordvpn?icon=docker&label=pulls"/></a>
-    <a href="https://cloud.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/stars/goug76/nordvpn?icon=docker&label=stars"/></a>
+    <a href="https://hub.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/size/goug76/nordvpn?icon=docker&label=size"/></a>
+    <a href="https://hub.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/pulls/goug76/nordvpn?icon=docker&label=pulls"/></a>
+    <a href="https://hub.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/stars/goug76/nordvpn?icon=docker&label=stars"/></a>
     <a href="https://github.com/goug76/nordvpn"><img src="https://badgen.net/github/forks/goug76/nordvpn?icon=github&label=forks&color=black"/></a>
     <a href="https://github.com/goug76/nordvpn"><img src="https://badgen.net/github/stars/goug76/nordvpn?icon=github&label=stars&color=black"/></a>
     <a href="https://github.com/goug76/nordvpn/actions/workflows/deploy.yml"><img src="https://github.com/goug76/nordvpn/actions/workflows/deploy.yml/badge.svg?branch=master"/></a>
