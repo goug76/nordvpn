@@ -1,4 +1,5 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
+# FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
+FROM ubuntu:22.04
 LABEL maintainer="John Goughenrou"
 
 ARG NORDVPN_VERSION=3.18.1
