@@ -1,26 +1,31 @@
 <p align="center">
-    <a href="https://nordvpn.com/"><img src="https://github.com/bubuntux/nordvpn/raw/master/.img/NordVpn_logo.png"/></a>
+    <a href="https://nordvpn.com/"><img src="https://github.com/goug76/nordvpn/raw/master/.img/NordVpn_logo.png"/></a>
     </br>
-    <a href="https://github.com/bubuntux/nordvpn/blob/master/LICENSE"><img src="https://badgen.net/github/license/bubuntux/nordvpn?color=cyan"/></a>
-    <a href="https://cloud.docker.com/u/bubuntux/repository/docker/bubuntux/nordvpn"><img src="https://badgen.net/docker/size/bubuntux/nordvpn?icon=docker&label=size"/></a>
-    <a href="https://cloud.docker.com/u/bubuntux/repository/docker/bubuntux/nordvpn"><img src="https://badgen.net/docker/pulls/bubuntux/nordvpn?icon=docker&label=pulls"/></a>
-    <a href="https://cloud.docker.com/u/bubuntux/repository/docker/bubuntux/nordvpn"><img src="https://badgen.net/docker/stars/bubuntux/nordvpn?icon=docker&label=stars"/></a>
-    <a href="https://github.com/bubuntux/nordvpn"><img src="https://badgen.net/github/forks/bubuntux/nordvpn?icon=github&label=forks&color=black"/></a>
-    <a href="https://github.com/bubuntux/nordvpn"><img src="https://badgen.net/github/stars/bubuntux/nordvpn?icon=github&label=stars&color=black"/></a>
-    <a href="https://github.com/bubuntux/nordvpn/actions/workflows/deploy.yml"><img src="https://github.com/bubuntux/nordvpn/actions/workflows/deploy.yml/badge.svg?branch=master"/></a>
+    <a href="https://github.com/goug76/nordvpn/blob/master/LICENSE"><img src="https://badgen.net/github/license/goug76/nordvpn?color=cyan"/></a>
+    <a href="https://cloud.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/size/goug76/nordvpn?icon=docker&label=size"/></a>
+    <a href="https://cloud.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/pulls/goug76/nordvpn?icon=docker&label=pulls"/></a>
+    <a href="https://cloud.docker.com/u/goug76/repository/docker/goug76/nordvpn"><img src="https://badgen.net/docker/stars/goug76/nordvpn?icon=docker&label=stars"/></a>
+    <a href="https://github.com/goug76/nordvpn"><img src="https://badgen.net/github/forks/goug76/nordvpn?icon=github&label=forks&color=black"/></a>
+    <a href="https://github.com/goug76/nordvpn"><img src="https://badgen.net/github/stars/goug76/nordvpn?icon=github&label=stars&color=black"/></a>
+    <a href="https://github.com/goug76/nordvpn/actions/workflows/deploy.yml"><img src="https://github.com/goug76/nordvpn/actions/workflows/deploy.yml/badge.svg?branch=master"/></a>
 </p>
 
 Official `NordVPN` client in a docker container; it makes routing traffic through the `NordVPN` network easy and secure with an integrated iptables kill switch.
+
+# What is NordVPN
+NordVPN is a virtual private network (VPN) service that encrypts your online activity and hides your IP address to protect your privacy. It creates a secure connection between your device and the internet, which can help you avoid malware, trackers, ads, and snoopers.
 
 # How to use this image
 This container was designed to be started first to provide a connection to other containers (using `--net=container:vpn`, see below *Starting an NordVPN client instance*).
 
 **NOTE**: More than the basic privileges are needed for NordVPN. With Docker 1.2 or newer, Podman, Kubernetes, etc. you can use the `--cap-add=NET_ADMIN,NET_RAW` option. Earlier versions, or with fig, and you'll have to run it in privileged mode.
 
+**NOTE**: To use this container you will need a valid NordVPN subscription and you will need to generate an [Access Token](https://support.nordvpn.com/hc/en-us/articles/20286980309265-How-to-use-a-token-with-NordVPN-on-Linux).
+
 ## Starting an NordVPN instance
     docker run -ti --cap-add=NET_ADMIN --cap-add=NET_RAW --name vpn \
                -e TOKEN=f6f2bb45... \
-               -e TECHNOLOGY=NordLynx -d ghcr.io/bubuntux/nordvpn
+               -e TECHNOLOGY=NordLynx -d ghcr.io/goug76/nordvpn
 
 Once it's up other containers can be started using its network connection:
 
@@ -28,19 +33,18 @@ Once it's up other containers can be started using its network connection:
 
 ## docker-compose example
 ```
-version: "3"
 services:
   vpn:
-    image: ghcr.io/bubuntux/nordvpn
+    image: ghcr.io/goug76/nordvpn
     cap_add:
       - NET_ADMIN               # Required
       - NET_RAW                 # Required
-    environment:                # Review https://github.com/bubuntux/nordvpn#environment-variables
+    environment:                # Review https://github.com/goug76/nordvpn#environment-variables
       - TOKEN=f6f2bb45...     # Required
       - CONNECT=United_States
       - TECHNOLOGY=NordLynx
       - NETWORK=192.168.1.0/24  # So it can be accessed within the local network
-    ports:
+    ports: # Ports for the containers passing though the VPN
       - 8080:8080
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=1  # Recomended if using ipv4 only
@@ -56,7 +60,6 @@ services:
 
 ## docker-compose example using reverse proxy
 ```
-version: "3"
 services:
   proxy:
     image: traefik:v2.4         # Review traefik documentation https://doc.traefik.io/traefik/ 
@@ -66,19 +69,19 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
-    ports:
+    ports: # Ports for the containers passing though the VPN
       - 80:80
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
   vpn:
-    image: ghcr.io/bubuntux/nordvpn
+    image: ghcr.io/goug76/nordvpn
     container_name: vpn
     cap_add:
       - NET_ADMIN               # Required
       - NET_RAW                 # Required
-    environment:                # Review https://github.com/bubuntux/nordvpn#environment-variables
+    environment:                # Review https://github.com/goug76/nordvpn#environment-variables
       - TOKEN=f6f2bb45...       # Required
       - CONNECT=United_States
       - TECHNOLOGY=NordLynx
@@ -101,7 +104,6 @@ services:
 
 ## docker-compose example using reverse proxy with TLS
 ```
-version: "3"
 services:
   proxy:
     image: traefik:v2.4             # Review traefik documentation https://doc.traefik.io/traefik/ 
@@ -117,7 +119,7 @@ services:
       - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
       - --certificatesresolvers.letsencrypt.acme.email=my@email.com # Replace with your email
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
-    ports:
+    ports: # Ports for the containers passing though the VPN
       - 80:80
       - 443:443
       - 8080:8080
@@ -143,12 +145,12 @@ services:
       - /dev/dri:/dev/dri
     restart: unless-stopped
   vpn:
-    image: ghcr.io/bubuntux/nordvpn
+    image: ghcr.io/goug76/nordvpn
     container_name: nordvpn
     cap_add:
       - NET_ADMIN               # Required
       - NET_RAW                 # Required
-    environment:                # Review https://github.com/bubuntux/nordvpn#environment-variables
+    environment:                # Review https://github.com/goug76/nordvpn#environment-variables
       - TOKEN=f6f2bb45...       # Required
       - CONNECT=United_States
       - TECHNOLOGY=NordLynx
@@ -175,13 +177,13 @@ services:
 # ENVIRONMENT VARIABLES
 
 * `TOKEN`    - Token for NordVPN account, can be generated in the web portal
-* `TOKENFILE` - File from which to get `TOKEN`, if using [docker secrets](https://docs.docker.com/compose/compose-file/compose-file-v3/#secrets) this should be set to `/run/secrets/<secret_name>`. Thi
+* `TOKENFILE` - File from which to get `TOKEN`, if using [docker secrets](https://docs.docker.com/compose/compose-file/compose-file-v3/#secrets) this should be set to `/run/secrets/<secret_name>`.
 * `CONNECT`  -  [country]/[server]/[country_code]/[city]/[group] or [country] [city], if none provide you will connect to  the recommended server.
-   - Provide a [country] argument to connect to a specific country. For example: Australia , Use `docker run --rm ghcr.io/bubuntux/nordvpn nordvpn countries` to get the list of countries.
+   - Provide a [country] argument to connect to a specific country. For example: Australia , Use `docker run --rm ghcr.io/goug76/nordvpn nordvpn countries` to get the list of countries.
    - Provide a [server] argument to connect to a specific server. For example: jp35 , [Full List](https://nordvpn.com/servers/tools/)
    - Provide a [country_code] argument to connect to a specific country. For example: us 
-   - Provide a [city] argument to connect to a specific city. For example: 'Hungary Budapest' , Use `docker run --rm ghcr.io/bubuntux/nordvpn nordvpn cities [country]` to get the list of cities. 
-   - Provide a [group] argument to connect to a specific servers group. For example: P2P , Use `docker run --rm ghcr.io/bubuntux/nordvpn nordvpn groups` to get the full list.
+   - Provide a [city] argument to connect to a specific city. For example: 'Hungary Budapest' , Use `docker run --rm ghcr.io/goug76/nordvpn nordvpn cities [country]` to get the list of cities. 
+   - Provide a [group] argument to connect to a specific servers group. For example: P2P , Use `docker run --rm ghcr.io/goug76/nordvpn nordvpn groups` to get the full list.
    - --group value  Specify a server group to connect to. For example: '--group p2p us'
 * `PRE_CONNECT` - Command to execute before attempt to connect.
 * `POST_CONNECT` - Command to execute after successful connection.
@@ -208,8 +210,10 @@ services:
 
 # Issues
 
-If you have any problems with or questions about this image, please contact me through a [GitHub issue](https://github.com/bubuntux/nordvpn/issues).
+If you have any problems with or questions about this image, please contact me through a [GitHub issue](https://github.com/goug76/nordvpn/issues).
 
 # Disclaimer 
 This project is independently developed for personal use, there is no affiliation with NordVpn or Nord Security companies,
 Nord Security companies are not responsible for and have no control over the nature, content and availability of this project.
+
+This is a fork of [bubuntux nordvpn](https://github.com/bubuntux/nordvpn) which is a fork of [dperson openvpn-client](https://github.com/dperson/openvpn-client)

@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv bash
+
+shopt -s nocasematch; if [[ "${TECHNOLOGY:-NordLynx}" =~ "NordLynx" ]]; then
+    echo "###################################################################"
+    echo '                ____                   _                           '
+    echo '               / ___| ___  _   _  __ _( )___                       '
+    echo '              | |  _ / _ \| | | |/ _` |// __|                      '
+    echo '              | |_| | (_) | |_| | (_| | \__ \                      '
+    echo '               \____|\___/ \__,_|\__, | |___/                      '
+    echo '           _   _                 |___/_          _                 '
+    echo '          | | | | ___  _ __ ___   ___| |    __ _| |__              '
+    echo '          | |_| |/ _ \| '_ ` _ \ / _ \ |   / _` | '_ \             '
+    echo '          |  _  | (_) | | | | | |  __/ |__| (_| | |_) |            '
+    echo '          |_| |_|\___/|_| |_| |_|\___|_____\__,_|_.__/             '
+    echo '                                                                   '
+    echo "↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓"
+    echo "${nordvpn --version}"
+    echo "Here is your private Key: $(wg show nordlynx private-key)"
+    echo "NordLynx IP: $(ip -o addr show dev nordlynx | awk '$3 == "inet" {print $4}')"
+    echo "External IP: $(curl --silent "https://ipinfo.io/ip")"
+    echo "###################################################################"
+fi
+
+exit 0
