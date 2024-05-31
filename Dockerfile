@@ -1,6 +1,7 @@
 # FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
 FROM ubuntu:22.04
-LABEL maintainer="John Goughenrou"
+LABEL maintainer="John Goughenrour"
+LABEL org.opencontainers.image.source https://github.com/goug76/nordvpn
 
 ARG NORDVPN_VERSION=3.18.1
 ARG DEBIAN_FRONTEND=noninteractive
