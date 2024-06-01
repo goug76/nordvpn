@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/bin/bash
 
 nordvpn set technology ${TECHNOLOGY:-NordLynx}
 
