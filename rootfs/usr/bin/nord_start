@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e  # Exit immediately if a command exits with a non-zero status
+
+echo "Running nord_login"
+/usr/bin/nord_login || { echo 'nord_login failed'; exit 1; }
+
+echo "Running nord_config"
+/usr/bin/nord_config || { echo 'nord_config failed'; exit 1; }
+
+echo "Running nord_connect"
+/usr/bin/nord_connect || { echo 'nord_connect failed'; exit 1; }
+
+echo "Running nord_info"
+/usr/bin/nord_info || { echo 'nord_info failed'; exit 1; }
+
+echo "Running nord_watch"
+/usr/bin/nord_watch || { echo 'nord_watch failed'; exit 1; }
+
+echo "All scripts ran successfully"
