@@ -1,5 +1,0 @@
-/usr/bin/nord_config false $PUID:$PGID 0755 0755
-/usr/bin/nord_connect false $PUID:$PGID 0755 0755
-/usr/bin/nord_login false $PUID:$PGID 0755 0755
-/usr/bin/nord_migrate false $PUID:$PGID 0755 0755
-/usr/bin/nord_watch false $PUID:$PGID 0755 0755

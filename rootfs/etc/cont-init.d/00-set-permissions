@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Set the owner and group
+chown root:root /usr/bin/dockerNetworks
+chown root:root /usr/bin/dockerNetworks6
+chown root:root /usr/bin/nord_config
+chown root:root /usr/bin/nord_connect
+chown root:root /usr/bin/nord_info
+chown root:root /usr/bin/nord_login
+chown root:root /usr/bin/nord_watch
+chown root:root /etc/services.d/nordvpn/data/check
+
+# Set the permissions
+chmod 0755 /usr/bin/dockerNetworks
+chmod 0755 /usr/bin/dockerNetworks6
+chmod 0755 /usr/bin/nord_config
+chmod 0755 /usr/bin/nord_connect
+chmod 0755 /usr/bin/nord_info
+chmod 0755 /usr/bin/nord_login
+chmod 0755 /usr/bin/nord_watch
+chmod 0755 /etc/services.d/nordvpn/data/check

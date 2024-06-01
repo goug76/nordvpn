@@ -1,2 +1,0 @@
-/usr/bin/dockerNetworks false $PUID:$PGID 0755 0755
-/usr/bin/dockerNetworks6 false $PUID:$PGID 0755 0755
